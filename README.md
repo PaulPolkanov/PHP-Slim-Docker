@@ -42,7 +42,7 @@ Development on Slim framework on Docker-compose with PostgreSQL, pgAdmin
   
 ```json
 {
-  "name": "example_name"
+  "name": "example_name",
   "age": 12
 }
 ```
