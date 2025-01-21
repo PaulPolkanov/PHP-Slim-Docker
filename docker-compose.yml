@@ -28,7 +28,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql-13/data
+      - ./.docker/postgres_data:/var/lib/postgresql/data
     networks:
       - slimapp-network
   # pgAdmin
@@ -44,9 +44,6 @@ services:
       - db
     networks:
       - slimapp-network
-
-volumes:
-  postgres_data:
 
 networks:
   slimapp-network:
