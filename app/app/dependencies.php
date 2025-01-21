@@ -27,6 +27,16 @@ return function (ContainerBuilder $containerBuilder) {
 
             return $logger;
         },
-        
+        PDO::class => function (ContainerInterface $container) {
+            $settings = $container->get(SettingsInterface::class);
+            $settings = $settings->get('db');
+    
+            $dsn = "pgsql:host={$settings['host']};port={$settings['port']};dbname={$settings['database']}";
+            $pdo = new PDO($dsn, $settings['username'], $settings['password']);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    
+            return $pdo;
+        },
     ]);
 };
