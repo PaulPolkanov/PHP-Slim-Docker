@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
     container_name: slimapp_php
     volumes:
-      - ./app:/var/www/html
+      - .:/var/www/html
     working_dir: /var/www/html
     ports:
       - "8080:80"

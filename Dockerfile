@@ -18,4 +18,4 @@ COPY . .
 RUN chown -R www-data:www-data /var/www/html
 
 # Запуск PHP-сервера
-CMD ["php", "-S", "0.0.0.0:80", "-t", "public"]
+CMD ["php", "-S", "0.0.0.0:80", "-t", "app/public"]
