@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # PHP-контейнер для Slim Framework
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: slimapp_php
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    ports:
+      - "8080:80"
+    networks:
+      - slimapp-network
+    depends_on:
+      - db
+
+  # PostgreSQL
+  db:
+    image: postgres:13
+    container_name: slimapp_db
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql-13/data
+    networks:
+      - slimapp-network
+  # pgAdmin
+  pgadmin:
+    container_name: slimapp_pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5051:80"
+    depends_on:
+      - db
+    networks:
+      - slimapp-network
+
+volumes:
+  postgres_data:
+
+networks:
+  slimapp-network:
+    driver: bridge
